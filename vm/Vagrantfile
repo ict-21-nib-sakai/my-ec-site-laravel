@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "almalinux/8"
+
+  config.vm.hostname = "relearning-laravel"
+
+  config.vm.network :private_network, ip: '192.168.33.133'
+  config.vm.network :forwarded_port, guest: 22, host: 13322, id: "ssh", auto_correct: true
+
+  config.vm.synced_folder "../", "/home/vagrant/sync", type: "rsync",
+                          rsync__exclude: [".git/", ".idea/"]
+
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = true
+  end
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--name", "relearning-laravel"]
+    vb.memory = "2048"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo dnf -y update kernel
+    sudo dnf -y install gcc kernel-devel kernel-headers make bzip2 perl
+    sudo dnf -y install elfutils-libelf-devel
+  SHELL
+
+  config.vm.provision "docker"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    cd /home/vagrant/sync/vm/provision
+    sh ./index.sh
+  SHELL
+end

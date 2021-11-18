@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  mysql:
+    build:
+      context: ./mysql
+      # Dockerfile に .env の変数を渡す
+      args:
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # MySQL設定
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # MySQLの文字コードとCollation
+    #  @see https://qiita.com/tfunato/items/e48ad0a37b8244a788f6
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - mysql-log:/var/log/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci
+    restart: always
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.11
+
+  php81_cli:
+    build:
+      context: ./php81-cli
+    volumes:
+      - ../code:/var/www/code
+      - php81-cli-log:/var/log
+    restart: always
+    links:
+      - mysql
+    networks:
+      app_net:
+
+  php81_apache:
+    build:
+      context: php81-apache
+    volumes:
+      - ../code:/var/www/code
+    restart: always
+    links:
+      - mysql
+    ports:
+      - "80:80"
+    networks:
+      app_net:
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+
+volumes:
+  mysql-data:
+  mysql-log:
+  php81-cli-log:
