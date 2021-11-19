@@ -1,6 +1,6 @@
 #!/bin/sh
 
-APP_PREFIX="my_app"
+APP_PREFIX="app"
 CURRENT_DIRECTORY=`pwd`
 
 cd ${CURRENT_DIRECTORY}/../../containers
