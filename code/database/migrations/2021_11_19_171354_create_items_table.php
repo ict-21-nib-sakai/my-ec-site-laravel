@@ -24,8 +24,8 @@ return new class extends Migration {
                 ->comment('メーカー名');
 
             $table
-                ->bigInteger('category_id')
-                ->nullable(false);
+                ->unsignedBigInteger('category_id')
+                ->nullable(true);
 
             $table
                 ->string('color', 255)
@@ -56,6 +56,13 @@ return new class extends Migration {
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table
+                ->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
 
             $table->index('unit_price');
             $table->index('recommended');
