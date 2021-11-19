@@ -1,5 +1,5 @@
-# Laravel Framework を動かすための開発環境
-PHP で人気のフレームワーク Laravel 開発環境の **テンプレート** となるリポジトリです。
+# 模擬的なECサイト
+Laravel Framework の復習およびその成果物であり、備忘録です。
 また Vagrant や Docker 部分に関しては個人的な備忘録です。独学によるものが大きく、最適な構築方法とは限りません。ご意見や改善案は issue に記載いただければ嬉しいです。
 
 ## あなたのパソコンに必要なもの
@@ -31,6 +31,9 @@ $ vagrant plugin install vagrant-vbguest
 $ cd vm
 $ vagrant up
 ```
+
+## Webアプリケーションのトップページ
+http://192.168.33.134/
 
 ## ホストOS側から、ゲストOS側へのファイル転送
 ```shell
