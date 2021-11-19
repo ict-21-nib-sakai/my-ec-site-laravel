@@ -4,10 +4,10 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "almalinux/8"
 
-  config.vm.hostname = "relearning-laravel"
+  config.vm.hostname = "my-ec-site"
 
-  config.vm.network :private_network, ip: '192.168.33.133'
-  config.vm.network :forwarded_port, guest: 22, host: 13322, id: "ssh", auto_correct: true
+  config.vm.network :private_network, ip: '192.168.33.134'
+  config.vm.network :forwarded_port, guest: 22, host: 13422, id: "ssh", auto_correct: true
 
   config.vm.synced_folder "../", "/home/vagrant/sync", type: "rsync",
                           rsync__exclude: [".git/", ".idea/"]
@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--name", "relearning-laravel"]
+    vb.customize ["modifyvm", :id, "--name", "my-ec-site"]
     vb.memory = "2048"
   end
 
