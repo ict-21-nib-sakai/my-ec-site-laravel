@@ -25,6 +25,27 @@ services:
       app_net:
         ipv4_address: 172.20.0.11
 
+  # ユニットテスト用 MySQL コンテナ
+  mysql-testing:
+    build:
+      context: ./mysql
+      args:
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-testing-data:/var/lib/mysql
+      - mysql-testing-log:/var/log/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci
+    restart: always
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.12
+
   php81_cli:
     build:
       context: ./php81-cli
@@ -34,6 +55,7 @@ services:
     restart: always
     links:
       - mysql
+      - mysql-testing
     networks:
       app_net:
 
@@ -45,6 +67,7 @@ services:
     restart: always
     links:
       - mysql
+      - mysql-testing
     ports:
       - "80:80"
     networks:
@@ -61,4 +84,6 @@ networks:
 volumes:
   mysql-data:
   mysql-log:
+  mysql-testing-data:
+  mysql-testing-log:
   php81-cli-log:
