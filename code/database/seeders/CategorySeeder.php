@@ -12,7 +12,7 @@ class CategorySeeder extends Seeder
 {
     use Traits\LoadCsv;
 
-    private const CSV_FILE_NAME = 'category.csv';
+    private const CSV_FILE_NAME = 'categories.csv';
 
     /**
      * Run the database seeds.
