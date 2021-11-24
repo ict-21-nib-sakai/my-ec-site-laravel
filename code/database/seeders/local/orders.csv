@@ -1,0 +1,4 @@
+user_id,payment_method,shipping_address_type,shipping_address,user_name
+1,cash_on_delivery,optional,鳥取県鳥取市●●123-1,鳥取 太郎
+2,credit_card,home,島根県安来市●●1-2-3,島根 花子
+1,credit_card,home,鳥取県鳥取市●●12,鳥取 太郎
