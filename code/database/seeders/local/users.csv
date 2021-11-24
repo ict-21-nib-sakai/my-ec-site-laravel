@@ -1,0 +1,4 @@
+name,email,email_verified_at,password,home_address,suspended
+島根 花子,hanako@example.com,2021-11-24 12:14:00,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,島根県○○市○○1-2-3,0
+鳥取 太郎,taro@example.com,2021-11-24 12:14:00,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,鳥取県○○郡○○町○○1234,0
+鳥取 二郎,jiro@example.com,2021-11-24 12:14:00,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,鳥取県○○郡○○町○○123-1,0
