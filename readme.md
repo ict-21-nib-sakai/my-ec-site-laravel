@@ -62,33 +62,6 @@ $ vagrant rsync-back
   - Laravel でマイグレーションファイルを作った・更新した。
   - などなど。なにかゲストOS側でファイルが作られたり、更新されたときに使用してください。
 
-## 既知の不具合
-- 初回 `vagrant up` コマンドで「マウントに失敗した」とメッセージが表示されます。
-- これは、ゲスト OSである AlmaLinux 8 にホストOS側と異なるバージョンの VirtualBox Guest Additions がインストールされてしまっているようです。
-- そのため、VirtualBox Guest Additions をゲストOS側に `vagrant ssh` して 手動でインストールする必要あります。
-- ダウンロードとインストールは下記を参照。(バージョン番号はホスト OS にインストールされている VirtualBox のバージョン番号に読み替えてください。)
-  - https://download.virtualbox.org/virtualbox/6.1.28/ 内の VBoxGuestAdditions_6.1.28.iso
-
-### ゲスト OS に手動で VirtualBox Guest Additions インストールする方法
-URL やファイル名のバージョン番号は、適宜読み替えてください。
-```bash
-$ cd vm
-$ vagrant ssh
-$ sudo dnf -y update kernel
-$ sudo dnf -y install gcc kernel-devel kernel-headers make bzip2 perl
-$ sudo dnf -y install elfutils-libelf-devel
-$ logout
-$ vagrant reload
-$ vagrant ssh
-$ curl -L -O https://download.virtualbox.org/virtualbox/6.1.28/VBoxGuestAdditions_6.1.28.iso
-$ sudo mkdir /media/iso
-$ sudo mount -t iso9660 ~/VBoxGuestAdditions_6.1.28.iso /media/iso
-$ cd /media/iso
-$ sudo ./VBoxLinuxAdditions.run
-$ logout
-$ vagrant reload
-```
-
 ## 参考書籍
 ### Vagrant
 - インターネットの記事を参照して試行錯誤しました。
