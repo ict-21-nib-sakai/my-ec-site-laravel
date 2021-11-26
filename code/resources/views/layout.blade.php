@@ -120,7 +120,7 @@
                                     <form action=""
                                           method="post"
                                           id="logout_form">
-                                        <%-- TODO CSRF トークン --%>
+                                        {{-- TODO CSRF トークン --}}
                                     </form>
                                     <script>
                                         const logout_link = document.getElementById('logout_link')
