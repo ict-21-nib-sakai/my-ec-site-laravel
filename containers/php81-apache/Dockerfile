@@ -3,7 +3,11 @@ FROM php:8.1.0RC6-apache
 COPY provision/*.sh /usr/local/bin/
 COPY conf /tmp/conf
 
-RUN apt-get update \
+ARG PHP_APACHE_USER_NAME
+ARG PHP_APACHE_USER_ID
+
+RUN adduser ${PHP_APACHE_USER_NAME} --disabled-password --uid ${PHP_APACHE_USER_ID} --gecos "" --shell /sbin/nologin \
+&& apt-get update \
 \
 && apt-get install -y --no-install-recommends \
   libfreetype6-dev \
@@ -54,3 +58,6 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/* \
 \
 && a2enmod rewrite
+
+USER ${PHP_APACHE_USER_NAME}
+WORKDIR /var/www/code

@@ -8,6 +8,8 @@ services:
       args:
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_CONTAINER_USER_NAME: ${MYSQL_CONTAINER_USER_NAME}
+        MYSQL_CONTAINER_USER_ID: ${MYSQL_CONTAINER_USER_ID}
     # MySQL設定
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -32,6 +34,8 @@ services:
       args:
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_CONTAINER_USER_NAME: ${MYSQL_CONTAINER_USER_NAME}
+        MYSQL_CONTAINER_USER_ID: ${MYSQL_CONTAINER_USER_ID}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -49,9 +53,13 @@ services:
   php81_cli:
     build:
       context: ./php81-cli
+      # Dockerfile に .env の変数を渡す
+      args:
+        PHP_CLI_USER_NAME: ${PHP_CLI_USER_NAME}
+        PHP_CLI_USER_ID: ${PHP_CLI_USER_ID}
     volumes:
       - ../code:/var/www/code
-      - php81-cli-log:/var/log
+      - php81-cli-log:/home/${PHP_CLI_USER_NAME}/log
     restart: always
     links:
       - mysql
@@ -62,6 +70,10 @@ services:
   php81_apache:
     build:
       context: php81-apache
+      # Dockerfile に .env の変数を渡す
+      args:
+        PHP_APACHE_USER_NAME: ${PHP_APACHE_USER_NAME}
+        PHP_APACHE_USER_ID: ${PHP_APACHE_USER_ID}
     volumes:
       - ../code:/var/www/code
     restart: always

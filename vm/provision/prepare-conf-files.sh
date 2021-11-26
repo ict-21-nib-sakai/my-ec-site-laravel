@@ -18,7 +18,7 @@ if [ ! -f "conf.d/docker.cnf" ]; then cp conf.d/docker.development.cnf conf.d/do
 # Prepare a crontab file.
 #  - PHP 8.1 CLI
 cd ${CURRENT_DIRECTORY}/../../containers/php81-cli/conf/etc/crontabs
-if [ ! -f "root" ]; then cp root.example root ; fi
+if [ ! -f "app-user" ]; then cp root.example app-user ; fi
 
 # Prepare a supervisord.conf file.
 #  - PHP 8.1 CLI
