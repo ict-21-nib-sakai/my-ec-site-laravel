@@ -81,7 +81,7 @@ $ php artisan xxx
 ```
 ファイル作成・更新される操作 (例えばマイグレーションファイル作成) を行った場合は、ホストOSで下記の操作を行ってください。
 ```bash
-$ vagrant rsync-auto
+$ vagrant rsync-back
 ```
 
 ## npm コマンド操作方法
@@ -95,7 +95,7 @@ $ npm install
 ```
 ファイル作成・更新される操作 (例えばパッケージ追加) を行った場合は、ホストOSで下記の操作を行ってください。
 ```bash
-$ vagrant rsync-auto
+$ vagrant rsync-back
 ```
 
 ## 参考書籍
