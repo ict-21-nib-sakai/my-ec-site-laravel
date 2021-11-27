@@ -10,6 +10,7 @@ RUN adduser -D ${PHP_CLI_USER_NAME} --uid ${PHP_CLI_USER_ID} --shell /sbin/nolog
 && /usr/local/bin/install-composer.sh \
 && apk update \
 && apk add --no-cache \
+    bash \
     bzip2-dev \
     curl-dev \
     gettext-dev \
@@ -57,3 +58,10 @@ CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
 USER ${PHP_CLI_USER_NAME}
 WORKDIR /var/www/code
+
+RUN { \
+    mkdir ~/.npm-global; \
+    npm config set prefix '~/.npm-global'; \
+    echo 'export PATH=~/.npm-global/bin:$PATH' > ~/.profile; \
+    echo 'PS1="\w \$ "' >> ~/.profile; \
+}
