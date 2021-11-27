@@ -56,6 +56,24 @@ $ vagrant rsync-auto
 - ホストOSのファイル変更を検知して、ゲストOS側に自動転送します。
 - また、ホストOS側でファイルが削除されると、ゲストOS側も自動的に削除されます。
 
+#### ゲストOS (AlmaLinux 8) 内で `$ npm run dev` や `$ npm run watch-poll` 行った後に
+- `$ vagrant sync-auto` が継続中に `$ vagrant rsync-back` を実行すると、こけます。
+- **★1** こけた以後、ゲストOS (AlmaLinux 8) 内で `$ npm run dev` や `$ npm run watch-poll` もこけてしまいます。
+- この場合の対処方法としては
+  - ホストOS側の `node_modules` ディレクトリを削除します。
+  - ゲストOS (AlmaLinux 8) にて `/home/vagrant/sync/code/node_modules` ディレクトリを削除します。
+  - ゲストOS (AlmaLinux 8) の `/home/vagrant/sync/code` ディレクトリにて
+    - `$ npm install`
+    - `$ npm run dev`
+    - の順番で実行します。
+- そして最後にホスト側で `$ vagrant rsync-back` を実行します。
+
+#### しかし、ホスト側で `$ vagrant rsync-auto` を実行すると、**★1** のところに戻ってしまいます。
+堂々めぐりになってしまって、どうしたら良いのだろう。
+- 明確な理由やスマートな解決方法が現時点でわかりません。
+  - node_modules ディレクトリは同期対象から外したほうが良いかもしれない。
+  - あるいは、node をインストールするときにシンボリックリンクを使わないオプションを付けてみると良いかもしれない。
+
 ## ゲストOS側からホストOS側へのファイル転送
 ```shell
 $ vagrant rsync-back
