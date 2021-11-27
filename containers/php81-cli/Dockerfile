@@ -19,7 +19,6 @@ RUN adduser -D ${PHP_CLI_USER_NAME} --uid ${PHP_CLI_USER_ID} --shell /sbin/nolog
     libpng-dev \
     libxml2-dev \
     libzip-dev \
-    npm \
     supervisor \
   && docker-php-ext-configure gd --enable-gd \
   && docker-php-ext-install \
