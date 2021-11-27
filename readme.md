@@ -25,6 +25,15 @@ $ vagrant plugin install vagrant-vbguest
     - PHP 8.1 RC6 CLI
     - PHP 8.1 RC6 Apache
     - MySQL 8.0
+    - MySQL 8.0 (ユニットテスト用)
+
+### コンテナ一覧
+| コンテナ名 | 操作方法 | コンテナの役割                                                                            | コンテナのIPアドレス |
+|---|---|---|---|
+| app-mysql-1 | $ docker exec -t -i app-mysql-1 bash | MySQL 8.0 (env=local用)                                                             | 172.20.0.11 (固定) |
+| app-mysql-testing-1 | `$ docker exec -t -i app-mysql-testing-1 bash` | MySQL 8.0 (ユニットテスト用)                                                               | 172.20.0.12 (固定) |
+| app-php81_apache-1 | `$ docker exec -t -i app-php81_apache-1 bash` | Apache PHP 8.1.0                                                                   | 動的 |
+| app-php81_cli-1 | `$ docker exec -t -i app-php81_cli-1 sh` | PHP 8.1.0 CLI<br>`$ php artisan xxx`, `$ composer require xxx`, `$ composer install` | 動的 |
 
 ## 起動方法
 ```shell
@@ -61,6 +70,33 @@ $ vagrant rsync-back
   - composer でパッケージを追加した。
   - Laravel でマイグレーションファイルを作った・更新した。
   - などなど。なにかゲストOS側でファイルが作られたり、更新されたときに使用してください。
+
+## artisan コマンド操作方法
+- `app-php81_cli-1` コンテナを使用してください。
+```bash
+$ cd vm
+$ vagrant ssh
+$ docker exec -t -i app-php81_cli-1 sh
+$ php artisan xxx
+```
+ファイル作成・更新される操作 (例えばマイグレーションファイル作成) を行った場合は、ホストOSで下記の操作を行ってください。
+```bash
+$ vagrant rsync-auto
+```
+
+## npm コマンド操作方法
+- ゲストOS (AlmaLinux 8) を使用してください。
+- ⚠各種 Docker コンテナに node, npm コマンドは用意されていません⚠
+```bash
+$ cd vm
+$ vagrant ssh
+$ cd sync/code
+$ npm install
+```
+ファイル作成・更新される操作 (例えばパッケージ追加) を行った場合は、ホストOSで下記の操作を行ってください。
+```bash
+$ vagrant rsync-auto
+```
 
 ## 参考書籍
 ### Vagrant
