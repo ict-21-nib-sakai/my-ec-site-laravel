@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "./", "/vagrant", disabled: true
   config.vm.synced_folder "../", "/home/vagrant/sync", type: "rsync",
-                          rsync__exclude: [".git/", ".idea/"],
+                          rsync__exclude: [".git/", ".idea/", "node_modules/"],
                           rsync__args: ["--recursive", "--links", "--perms"]
 
   if Vagrant.has_plugin?("vagrant-vbguest")
