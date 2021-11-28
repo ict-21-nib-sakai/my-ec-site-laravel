@@ -156,10 +156,10 @@
                 </div>
             @endif
 
-            @if(true)
+            @if(Session::has('info'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="bi bi-info-circle"></i>
-                    ●●●
+                    {{ Session::get('info') }}
                     <button type="button"
                             class="btn-close"
                             data-bs-dismiss="alert"
