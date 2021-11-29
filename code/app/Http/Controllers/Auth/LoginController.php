@@ -99,7 +99,15 @@ class LoginController extends Controller
             return new JsonResponse([], 204);
         }
 
-        return redirect('/');
+        $request
+            ->session()
+            ->flash(
+                'info',
+                'ログアウトしました。ご利用ありがとうございました。'
+            );
+
+        return redirect()
+            ->route('index');
     }
 
     /**
