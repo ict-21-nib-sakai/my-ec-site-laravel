@@ -46,6 +46,13 @@ class LoginController extends Controller
         if (false == $this->attemptLogin($request)) {
             $this->incrementLoginAttempts($request);
 
+            $request
+                ->session()
+                ->flash(
+                    'error',
+                    'ログインできませんでした。メールアドレスとパスワードを再度入力してください。'
+                );
+
             return $this->sendFailedLoginResponse($request);
         }
 
