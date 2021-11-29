@@ -74,27 +74,26 @@
                             </span>
                         </a>
                     </li>
-
                 </ul>
 
                 <ul class="navbar-nav d-flex">
-                    @if(true)
+                    @guest
                         <li class="nav-item">
                             <a class="nav-link" href="" tabindex="-1">
                                 <i class="bi bi-lock"></i>
                                 ログイン
                             </a>
                         </li>
-                    @endif
+                    @endguest
 
-                    @if(true)
+                    @auth
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#" id="navbarDropdown"
                                role="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                ●●●さん
+                                {{ auth()->guard()->user()->name }}さん
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end"
                                 aria-labelledby="navbarDropdown">
@@ -113,14 +112,14 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#" id="logout_link">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" id="logout_link">
                                         <i class="bi bi-unlock"></i>
                                         ログアウト
                                     </a>
-                                    <form action=""
+                                    <form action="{{ route('logout') }}"
                                           method="post"
                                           id="logout_form">
-                                        {{-- TODO CSRF トークン --}}
+                                        @csrf
                                     </form>
                                     <script>
                                         const logout_link = document.getElementById('logout_link')
@@ -134,7 +133,7 @@
                                 </li>
                             </ul>
                         </li>
-                    @endif
+                    @endauth
                 </ul>
             </div>
         </div>
