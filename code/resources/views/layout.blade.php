@@ -144,10 +144,10 @@
 <main id="app">
     <div class="py-5 bg-light mt-3">
         <div class="container">
-            @if(true)
+            @if(Session::has('error'))
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <i class="bi bi-exclamation-circle"></i>
-                    ●●●
+                    {{ Session::get('error') }}
                     <button type="button"
                             class="btn-close"
                             data-bs-dismiss="alert"
