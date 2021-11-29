@@ -77,6 +77,32 @@ class LoginController extends Controller
     }
 
     /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     *
+     * @return HttpFoundation\Response
+     */
+    public function logout(Request $request): HttpFoundation\Response
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        if ($request->wantsJson()) {
+            return new JsonResponse([], 204);
+        }
+
+        return redirect('/');
+    }
+
+    /**
      * Send the response after the user was authenticated.
      *
      * @param Request $request
