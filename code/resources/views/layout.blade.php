@@ -1,3 +1,6 @@
+@php
+    /* @var \Illuminate\Database\Eloquent\Collection $categories */
+@endphp
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -57,9 +60,13 @@
                             カテゴリ
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            <li>
-                                <a class="dropdown-item" href="">●●●</a>
-                            </li>
+                            @foreach($categories as $category)
+                                @php /* @var \App\Models\Category $category */ @endphp
+                                <li>
+                                    {{-- TODO ルートとリンクを設定 --}}
+                                    <a class="dropdown-item" href="">{{ $category->name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
 
