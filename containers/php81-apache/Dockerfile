@@ -1,4 +1,4 @@
-FROM php:8.1.0RC6-apache
+FROM php:8.1.0-apache
 
 COPY provision/*.sh /usr/local/bin/
 COPY conf /tmp/conf

@@ -1,4 +1,4 @@
-FROM php:8.1.0RC6-cli-alpine3.14
+FROM php:8.1.0-cli-alpine3.15
 
 COPY provision/*.sh /usr/local/bin/
 COPY conf /tmp/conf
@@ -7,10 +7,9 @@ ARG PHP_CLI_USER_NAME
 ARG PHP_CLI_USER_ID
 
 RUN adduser -D ${PHP_CLI_USER_NAME} --uid ${PHP_CLI_USER_ID} --shell /sbin/nologin \
-&& /usr/local/bin/install-composer.sh \
-&& apk update \
-&& apk add --no-cache \
-    bzip2-dev \
+  && /usr/local/bin/install-composer.sh \
+  && apk update \
+  && apk add --no-cache \
     curl-dev \
     gettext-dev \
     gmp-dev \
